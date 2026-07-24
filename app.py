@@ -13,12 +13,29 @@ print("Job Search Copilot")
 print("------------------")
 
 job_description = input("Paste a short job description: ")
-found_skills = find_skills(job_description)
+job_skills = find_skills(job_description)
 
-if found_skills:
-    print("Skills found:")
+user_input = input("Enter your skills, separated by commas: ")
+user_skills = []
 
-    for skill in found_skills:
-        print(f"- {skill}")
-else:
-    print("No recognized skills were found.")
+for skill in user_input.split(","):
+    user_skills.append(skill.strip().lower())
+
+matched_skills = []
+missing_skills = []
+
+for skill in job_skills:
+    if skill in user_skills:
+        matched_skills.append(skill)
+    else:
+        missing_skills.append(skill)
+
+print("\nSkills you match:")
+
+for skill in matched_skills:
+    print(f"- {skill}")
+
+print("\nSkills you may need:")
+
+for skill in missing_skills:
+    print(f"- {skill}")
