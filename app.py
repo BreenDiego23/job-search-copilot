@@ -1,8 +1,24 @@
+def find_skills(job_description):
+    skills = ["python", "javascript", "sql", "git", "api"]
+    found_skills = []
+
+    for skill in skills:
+        if skill in job_description.lower():
+            found_skills.append(skill)
+
+    return found_skills
+
+
 print("Job Search Copilot")
 print("------------------")
 
 job_description = input("Paste a short job description: ")
+found_skills = find_skills(job_description)
 
-word_count = len(job_description.split())
+if found_skills:
+    print("Skills found:")
 
-print(f"This job description contaions {word_count} words.")
+    for skill in found_skills:
+        print(f"- {skill}")
+else:
+    print("No recognized skills were found.")
