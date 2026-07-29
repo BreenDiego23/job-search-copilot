@@ -30,6 +30,13 @@ for skill in job_skills:
     else:
         missing_skills.append(skill)
 
+# This calculates a detected-skill match percentage
+if job_skills:
+    match_percentage = round(len(matched_skills) / len(job_skills) * 100)
+else:
+    match_percentage = 0
+
+print(f"\nDetected skill match percentage: {match_percentage}%")
 print("\nSkills you match:")
 
 for skill in matched_skills:
