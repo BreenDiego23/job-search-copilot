@@ -1,7 +1,11 @@
+import json
+
 def find_skills(job_description):
+    
     skills = ["python", "javascript", "sql", "git", "api"]
     found_skills = []
 
+    # Check each supported skill and save the ones mentioned in the job.
     for skill in skills:
         if skill in job_description.lower():
             found_skills.append(skill)
@@ -18,21 +22,25 @@ job_skills = find_skills(job_description)
 user_input = input("Enter your skills, separated by commas: ")
 user_skills = []
 
+# Clean up each skill so extra spaces and capitalization do not affect matching.
 for skill in user_input.split(","):
     user_skills.append(skill.strip().lower())
 
 matched_skills = []
 missing_skills = []
 
+# Separate the job skills into matches and possible skill gaps.
 for skill in job_skills:
     if skill in user_skills:
         matched_skills.append(skill)
     else:
         missing_skills.append(skill)
 
-# This calculates a detected-skill match percentage
+# Use 0 when no job skills are detected so we do not divide by zero.
 if job_skills:
-    match_percentage = round(len(matched_skills) / len(job_skills) * 100)
+    match_percentage = round(
+        len(matched_skills) / len(job_skills) * 100
+    )
 else:
     match_percentage = 0
 
@@ -46,3 +54,19 @@ print("\nSkills you may need:")
 
 for skill in missing_skills:
     print(f"- {skill}")
+
+# Organize the analysis into structured data that can be saved and loaded later.
+job_data = {
+    "job_description": job_description,
+    "detected_skills": job_skills,
+    "user_skills": user_skills,
+    "matched_skills": matched_skills,
+    "missing_skills": missing_skills,
+    "match_percentage": match_percentage,
+}
+
+# Save the analysis locally without publishing the user's information to GitHub.
+with open("saved_job.json", "w") as file:
+    json.dump(job_data, file, indent=4)
+
+print("\nJob analysis saved to saved_job.json")

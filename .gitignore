@@ -1,0 +1,15 @@
+# API keys and other secrets
+.env
+
+# Local Python environment
+.venv/
+
+# Python-generated files
+__pycache__/
+*.pyc
+
+# macOS-generated files
+.DS_Store
+
+# Locally saved job information
+saved_job.json
