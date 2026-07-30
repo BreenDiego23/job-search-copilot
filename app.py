@@ -12,11 +12,34 @@ def find_skills(job_description):
 
     return found_skills
 
+def load_saved_job():
+    """Load the most recently saved job analysis."""
+    try:
+        with open("saved_job.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return None
 
 print("Job Search Copilot")
 print("------------------")
 
-job_description = input("Paste a short job description: ")
+view_saved_job = input(
+    "Would you like to view your last saved analysis? (y/n): "
+).strip().lower()
+
+if view_saved_job == "y":
+    saved_job = load_saved_job()
+
+    if saved_job:
+        saved_skills = ", ".join(saved_job["detected_skills"])
+
+        print("\nLast saved analysis:")
+        print(f"Detected skills: {saved_skills or 'None'}")
+        print(f"Skill match: {saved_job['match_percentage']}%")
+    else:
+        print("\nNo saved job analysis was found.")
+
+job_description = input("\nPaste a short job description: ")
 job_skills = find_skills(job_description)
 
 user_input = input("Enter your skills, separated by commas: ")
