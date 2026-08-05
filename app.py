@@ -33,6 +33,10 @@ if view_saved_job == "y":
 
     if saved_job:
         saved_skills = ", ".join(saved_job["detected_skills"])
+        saved_advice = saved_job.get("ai_advice")
+        if saved_advice:
+            print("\nLast saved AI advice:")
+            print(saved_advice)
 
         print("\nLast saved analysis:")
         print(f"Detected skills: {saved_skills or 'None'}")
@@ -97,6 +101,7 @@ job_data = {
     "matched_skills": matched_skills,
     "missing_skills": missing_skills,
     "match_percentage": match_percentage,
+    "ai_advice": ai_advice,
 }
 
 # Save the analysis locally without publishing the user's information to GitHub.
